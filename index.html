@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumber Runner Trading - AI-Driven Lumber Trading Company</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Pattern background - using the geometric interlocking pattern */
+        .pattern-bg {
+            background-color: #fff;
+            position: relative;
+        }
+        
+        .pattern-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%23000000" stroke-width="1.5" opacity="0.03"><rect x="4" y="4" width="24" height="24"/><rect x="8" y="8" width="7" height="16"/><rect x="17" y="8" width="7" height="16"/><rect x="32" y="4" width="24" height="24"/><rect x="36" y="8" width="7" height="16"/><rect x="45" y="8" width="7" height="16"/><rect x="60" y="4" width="24" height="24"/><rect x="64" y="8" width="7" height="16"/><rect x="73" y="8" width="7" height="16"/><rect x="88" y="4" width="24" height="24"/><rect x="92" y="8" width="7" height="16"/><rect x="101" y="8" width="7" height="16"/><rect x="4" y="32" width="24" height="24"/><rect x="8" y="36" width="7" height="16"/><rect x="17" y="36" width="7" height="16"/><rect x="32" y="32" width="24" height="24"/><rect x="36" y="36" width="7" height="16"/><rect x="45" y="36" width="7" height="16"/><rect x="60" y="32" width="24" height="24"/><rect x="64" y="36" width="7" height="16"/><rect x="73" y="36" width="7" height="16"/><rect x="88" y="32" width="24" height="24"/><rect x="92" y="36" width="7" height="16"/><rect x="101" y="36" width="7" height="16"/><rect x="4" y="60" width="24" height="24"/><rect x="8" y="64" width="7" height="16"/><rect x="17" y="64" width="7" height="16"/><rect x="32" y="60" width="24" height="24"/><rect x="36" y="64" width="7" height="16"/><rect x="45" y="64" width="7" height="16"/><rect x="60" y="60" width="24" height="24"/><rect x="64" y="64" width="7" height="16"/><rect x="73" y="64" width="7" height="16"/><rect x="88" y="60" width="24" height="24"/><rect x="92" y="64" width="7" height="16"/><rect x="101" y="64" width="7" height="16"/><rect x="4" y="88" width="24" height="24"/><rect x="8" y="92" width="7" height="16"/><rect x="17" y="92" width="7" height="16"/><rect x="32" y="88" width="24" height="24"/><rect x="36" y="92" width="7" height="16"/><rect x="45" y="92" width="7" height="16"/><rect x="60" y="88" width="24" height="24"/><rect x="64" y="92" width="7" height="16"/><rect x="73" y="92" width="7" height="16"/><rect x="88" y="88" width="24" height="24"/><rect x="92" y="92" width="7" height="16"/><rect x="101" y="92" width="7" height="16"/></g></svg>');
+            background-size: 120px 120px;
+            background-repeat: repeat;
+        }
+        
+        .pattern-bg > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        header {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 3px solid #FFC72C;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2.0rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            width: 100px;
+            height: 59px;
+            position: relative;
+        }
+        
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            font-weight: 800;
+            font-size: 2.4rem;
+            letter-spacing: 1px;
+            color: #000;
+        }
+        
+        .logo-tm {
+            font-size: 1.2rem;
+            vertical-align: super;
+            font-weight: 400;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 700;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a:hover {
+            color: #FF8200;
+            border-bottom: 2px solid #FFC72C;
+            padding-bottom: 2px;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #555555 0%, #333 50%, #000 100%);
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%23FFFFFF" stroke-width="1.5" opacity="0.05"><path d="M0 10h20v20H0zM10 0v20h20V0zM0 40h20v20H0zM10 30v20h20V30zM30 10h20v20H30zM40 0v20h20V0zM30 40h20v20H30zM40 30v20h20V30zM20 20h20v20H20z"/></g></svg>');
+            background-size: 60px 60px;
+            background-repeat: repeat;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        
+        .hero-highlight {
+            color: #FFC72C;
+        }
+        
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            color: #ddd;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #FFC72C;
+            color: #000;
+            text-decoration: none;
+            font-weight: 800;
+            border-radius: 5px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid #FFC72C;
+        }
+        
+        .btn:hover {
+            background: transparent;
+            color: #FFC72C;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: #333;
+        }
+        
+        .features {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 10px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 260px;
+            border: 2px solid rgba(255, 199, 44, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .feature:hover {
+            background: rgba(255, 199, 44, 0.2);
+            transform: translateY(-5px);
+        }
+        
+        .feature h3 {
+            color: #FFC72C;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        .about {
+            padding: 100px 0;
+            background: white;
+            position: relative;
+        }
+        
+        .about::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%23000000" stroke-width="1.5" opacity="0.02"><path d="M0 10h20v20H0zM10 0v20h20V0zM0 40h20v20H0zM10 30v20h20V30zM30 10h20v20H30zM40 0v20h20V0zM30 40h20v20H30zM40 30v20h20V30zM20 20h20v20H20z"/></g></svg>');
+            background-size: 60px 60px;
+            background-repeat: repeat;
+        }
+        
+        .about > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .about h2 {
+            font-size: 2.8rem;
+            margin-bottom: 25px;
+            color: #333;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .about h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: #FF8200;
+        }
+        
+        .about p {
+            margin-bottom: 20px;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        .highlight-box {
+            background: #f8f8f8;
+            border-left: 5px solid #FFC72C;
+            padding: 30px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            color: #FF8200;
+            margin-bottom: 15px;
+        }
+        
+        .services {
+            padding: 100px 0;
+        }
+        
+        .services h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: #333;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .services h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #FFC72C;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, #FFC72C, #FF8200);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .service-card h3 {
+            color: #FF8200;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        
+        .service-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .service-card li {
+            padding: 12px 0;
+            position: relative;
+            padding-left: 30px;
+            font-size: 1.05rem;
+        }
+        
+        .service-card li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 18px;
+            width: 15px;
+            height: 3px;
+            background: #FFC72C;
+        }
+        
+        .team {
+            padding: 100px 0;
+            background: #333;
+            color: white;
+        }
+        
+        .team h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 60px;
+            color: white;
+            position: relative;
+        }
+        
+        .team h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: #FFC72C;
+        }
+        
+        .team-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px;
+            font-size: 1.2rem;
+            color: #ccc;
+        }
+        
+        .team-benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .benefit {
+            text-align: center;
+            padding: 40px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+        
+        .benefit:hover {
+            background: rgba(255, 199, 44, 0.1);
+            transform: translateY(-5px);
+        }
+        
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FFC72C, #FF8200);
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 800;
+        }
+        
+        .benefit h3 {
+            color: #FFC72C;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .benefit p {
+            color: #ccc;
+            font-size: 1.05rem;
+        }
+        
+        .cta-section {
+            background: #FFC72C;
+            padding: 60px 0;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            color: #000;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+        }
+        
+        footer {
+            background: #000;
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo svg {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .footer-logo span {
+            font-weight: 800;
+            font-size: 1.4rem;
+        }
+        
+        .footer-section h3 {
+            color: #FFC72C;
+            margin-bottom: 20px;
+        }
+        
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+        
+        .footer-section a:hover {
+            color: #FFC72C;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            color: #999;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .features {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="/lumber-runner-logo.png" alt="Lumber Runner Logo" />
+                </div>
+                <div class="logo-text">LUMBER RUNNER<span class="logo-tm">™</span></div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#team">Join Our Team</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Modernizing Lumber Trading<br>with <span class="hero-highlight">AI-Driven Efficiency</span></h1>
+            <p>Empowering our traders with cutting-edge technology to deliver unmatched service and efficiency across the lumber supply chain</p>
+            <a href="#team" class="btn">Join Our Team</a>
+            <a href="#services" class="btn btn-secondary">Learn More</a>
+            <div class="features">
+                <div class="feature">
+                    <h3>MODERN</h3>
+                    <p>AI-powered internal tools and processes create a competitive advantage for our traders</p>
+                </div>
+                <div class="feature">
+                    <h3>APPROACHABLE</h3>
+                    <p>Flexible partnership models tailored to your business needs</p>
+                </div>
+                <div class="feature">
+                    <h3>TRUSTWORTHY</h3>
+                    <p>Incentives aligned for our partner's success, and transparency to prove it.</p>
+                </div>
+                <div class="feature">
+                    <h3>INNOVATIVE</h3>
+                    <p>Building technology for traders to deliver 10x the trades</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div>
+                    <h2>A New Approach to<br>Lumber Trading</h2>
+                    <p>Lumber Runner Trading Company has assembled a team of expert Lumber Runners who leverage our proprietary technology to sell loads for mills, source loads for buyers, and drive efficiency throughout the supply chain.</p>
+                    <p>While we're a new company with a fresh brand and innovative approach, our team brings decades of experience. We've been immersed in lumber trading and technology since 2020, with roots in the supply chain dating back to the 1990s.</p>
+                    <div class="highlight-box">
+                        <h3>Experience Meets Innovation</h3>
+                        <p>We've combined industry expertise with cutting-edge AI technology to create a trading company that works smarter, not just harder.</p>
+                    </div>
+                </div>
+                <div>
+                    <h2>The Lumber Runner<br>Advantage</h2>
+                    <p>Our proprietary AI-powered technology is exclusively available to our internal team of traders, enabling them to:</p>
+                    <ul style="list-style: none; padding: 20px 0;">
+                        <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; top: 15px; width: 20px; height: 3px; background: #FFC72C; display: block;"></span>
+                            Process and analyze market data at unprecedented speed
+                        </li>
+                        <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; top: 15px; width: 20px; height: 3px; background: #FFC72C; display: block;"></span>
+                            Identify optimal trading opportunities in real-time
+                        </li>
+                        <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; top: 15px; width: 20px; height: 3px; background: #FFC72C; display: block;"></span>
+                            Manage 10x the volume of traditional traders
+                        </li>
+                        <li style="padding: 10px 0; padding-left: 30px; position: relative;">
+                            <span style="position: absolute; left: 0; top: 15px; width: 20px; height: 3px; background: #FFC72C; display: block;"></span>
+                            Deliver exceptional service with enhanced efficiency
+                        </li>
+                    </ul>
+                    <p><strong>Our technology stays in-house, but the benefits flow directly to our partners through superior service and results.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="services" class="services">
+        <div class="pattern-overlay"></div>
+        <div class="container">
+            <h2>Tailored Solutions for Every Partner</h2>
+            <div class="service-grid">
+                <div class="service-card">
+                    <h3>For Mills</h3>
+                    <ul>
+                        <li>Extension of your sales team with aligned incentives</li>
+                        <li>Flexible pricing: flat fee, fixed %, or margin share</li>
+                         <li>Traditional trading available to prove our value</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h3>For Buyers</h3>
+                    <ul>
+                        <li>Advanced inventory planning & automated replenishment</li>
+                        <li>Flexible relationship structures that grow with you</li>
+                        <li>Start with traditional trading, evolve to partnership</li>
+                    </ul>
+                </div>
+                <div class="service-card">
+                    <h3>For Traders</h3>
+                    <ul>
+                        <li>Working capital and comprehensive back-office support</li>
+                        <li>Access to our proprietary transportation system</li>
+                        <li>Leverage our AI-powered tech stack</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="team" class="team">
+        <div class="container">
+            <h2>Why Join the Lumber Runner Team?</h2>
+            <p class="team-intro">We're building something different. A trading company where technology amplifies human expertise, and where the best traders want to work.</p>
+            <div class="team-benefits">
+                <div class="benefit">
+                    <div class="benefit-icon">100%</div>
+                    <h3>Focused Leadership</h3>
+                    <p>Your manager is dedicated to your success, not competing for the same customers and capital</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">ZERO</div>
+                    <h3>No Non-Competes</h3>
+                    <p>We retain talent by being the best place to work, not through restrictive contracts</p>
+                </div>
+                <div class="benefit">
+                    <div class="benefit-icon">10X</div>
+                    <h3>AI-Powered Trading</h3>
+                    <p>Proprietary AI technology for our Lumber Runner Team is designed to unlock 10x trading capacity</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Run?</h2>
+            <p>Join a team that's redefining lumber trading through technology and expertise</p>
+            <a href="mailto:info@lumrun.com?subject=Inquiry%20from%20Website&body=Hi%2C%0AI'm%20interested%20in%20learning%20more%20about%20Lumber%20Runner%20Trading." class="btn" style="background: #000; color: #FFC72C;">Get in Touch</a>
+        </div>
+    </section>
+    
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="footer-logo">
+                        <img src="/lumber-runner-logo.png" alt="Lumber Runner Logo" style="width: 50px; height: auto;" />
+                        <span>LUMBER RUNNER™</span>
+                    </div>
+                    <p>Modernizing lumber trading through AI-driven<br> efficiency and transparent partnerships.</p>
+                </div>
+                <div class="footer-section">
+                    <h3> </h3>
+
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Ready to transform your trading?</p>
+                    <p><a href="mailto:info@lumrun.com">info@lumrun.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Lumber Runner Trading, LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
