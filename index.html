@@ -117,12 +117,25 @@
             padding-bottom: 2px;
         }
         
+        /* Updated hero section with darker background */
         .hero {
-            background: linear-gradient(135deg, #555555 0%, #333 50%, #000 100%);
+            background: linear-gradient(135deg, #444444 0%, #222222 45%, #111111 100%);
             color: white;
             padding: 100px 0;
             position: relative;
             overflow: hidden;
+        }
+        
+        /* Added a darker overlay for more contrast */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
         }
         
         .hero::before {
@@ -132,14 +145,15 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%23FFFFFF" stroke-width="1.5" opacity="0.05"><path d="M0 10h20v20H0zM10 0v20h20V0zM0 40h20v20H0zM10 30v20h20V30zM30 10h20v20H30zM40 0v20h20V0zM30 40h20v20H30zM40 30v20h20V30zM20 20h20v20H20z"/></g></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" stroke="%23FFFFFF" stroke-width="1.5" opacity="0.03"><path d="M0 10h20v20H0zM10 0v20h20V0zM0 40h20v20H0zM10 30v20h20V30zM30 10h20v20H30zM40 0v20h20V0zM30 40h20v20H30zM40 30v20h20V30zM20 20h20v20H20z"/></g></svg>');
             background-size: 60px 60px;
             background-repeat: repeat;
+            z-index: 2;
         }
         
         .hero-content {
             position: relative;
-            z-index: 1;
+            z-index: 3; /* Increased to be above both overlays */
         }
         
         .hero h1 {
@@ -375,7 +389,7 @@
         
         .team {
             padding: 100px 0;
-            background: #333;
+            background: #222; /* Darkened to match hero section */
             color: white;
         }
         
@@ -554,9 +568,9 @@
         <nav class="container">
             <div class="logo">
                 <div class="logo-icon">
-                    <img src="/lumber-runner-logo.png" alt="Lumber Runner Logo" />
+                    <img src="/LRTfull.png" alt="Lumber Runner Logo" />
                 </div>
-                <div class="logo-text">LUMBER RUNNER<span class="logo-tm">™</span></div>
+                
             </div>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
@@ -633,8 +647,7 @@
         </div>
     </section>
     
-    <section id="services" class="services">
-        <div class="pattern-overlay"></div>
+    <section id="services" class="services pattern-bg">
         <div class="container">
             <h2>Tailored Solutions for Every Partner</h2>
             <div class="service-grid">
