@@ -536,6 +536,98 @@
             color: #999;
         }
         
+        /* Terms links styling */
+        .terms-links {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+        
+        .terms-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+        
+        .terms-links a:hover {
+            color: #FFC72C;
+            cursor: pointer;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 50px auto;
+            padding: 40px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 35px;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #FF8200;
+        }
+        
+        .modal h2 {
+            color: #FF8200;
+            margin-bottom: 30px;
+            font-size: 2.2rem;
+            padding-right: 50px;
+        }
+        
+        .modal h3 {
+            color: #333;
+            margin: 25px 0 15px 0;
+            font-size: 1.4rem;
+        }
+        
+        .modal p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: #666;
+        }
+        
+        .modal ul {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .modal li {
+            margin-bottom: 8px;
+            color: #666;
+        }
+        
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links {
@@ -560,6 +652,22 @@
                 grid-template-columns: 1fr;
                 gap: 40px;
             }
+            
+            .modal-content {
+                margin: 20px auto;
+                padding: 20px;
+                width: 95%;
+                max-height: 90vh;
+            }
+            
+            .modal h2 {
+                font-size: 1.8rem;
+            }
+            
+            .terms-links a {
+                display: block;
+                margin: 10px 0;
+            }
         }
     </style>
 </head>
@@ -568,7 +676,7 @@
         <nav class="container">
             <div class="logo">
                 <div class="logo-icon">
-                    <img src="/LRTfull.png" alt="Lumber Runner Logo" />
+                    <img src="/api/placeholder/240/80" alt="Lumber Runner Logo" />
                 </div>
                 
             </div>
@@ -583,14 +691,14 @@
     
     <section class="hero">
         <div class="container hero-content">
-            <h1>Modernizing Lumber Trading<br>with <span class="hero-highlight">AI-Driven Efficiency</span></h1>
+            <h1>Modernizing Lumber Trading<br></h1>
             <p>Empowering our traders with cutting-edge technology to deliver unmatched service and efficiency across the lumber supply chain</p>
             <a href="#team" class="btn">Join Our Team</a>
             <a href="#services" class="btn btn-secondary">Learn More</a>
             <div class="features">
                 <div class="feature">
                     <h3>MODERN</h3>
-                    <p>AI-powered internal tools and processes create a competitive advantage for our traders</p>
+                    <p>The latest tech and business processes create a competitive advantage for our traders</p>
                 </div>
                 <div class="feature">
                     <h3>APPROACHABLE</h3>
@@ -622,7 +730,7 @@
                 </div>
                 <div>
                     <h2>The Lumber Runner<br>Advantage</h2>
-                    <p>Our proprietary AI-powered technology is exclusively available to our internal team of traders, enabling them to:</p>
+                    <p>We are building technology for our internal trading team, enabling them to:</p>
                     <ul style="list-style: none; padding: 20px 0;">
                         <li style="padding: 10px 0; padding-left: 30px; position: relative;">
                             <span style="position: absolute; left: 0; top: 15px; width: 20px; height: 3px; background: #FFC72C; display: block;"></span>
@@ -716,7 +824,7 @@
             <div class="footer-content">
                 <div>
                     <div class="footer-logo">
-                        <img src="/LRTfullwhite.png" alt="Lumber Runner Logo" style="width: 240px; height: auto;" />
+                        <img src="/api/placeholder/240/60" alt="Lumber Runner Logo" style="width: 240px; height: auto;" />
                         
                     </div>
                     <p>Modernizing lumber trading through AI-driven<br> efficiency and transparent partnerships.</p>
@@ -734,8 +842,178 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; 2025 Lumber Runner Trading, LLC. All rights reserved.</p>
+                <div class="terms-links">
+                    <a href="#" onclick="openModal('salesTermsModal')">Sales Terms & Conditions</a>
+                    <a href="#" onclick="openModal('purchasingTermsModal')">Purchasing Terms & Conditions</a>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- Sales Terms Modal -->
+    <div id="salesTermsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('salesTermsModal')">&times;</span>
+            <h2>Sales Order Terms and Conditions</h2>
+            
+            <h3>1. Applicability</h3>
+            <p><strong>a.</strong> These sales order terms and conditions (these "Terms") govern the sale of the goods ("Goods") and services ("Services") by Lumber Runner Trading, LLC ("LRT") to the buyer named on an Order Confirmation attached to these Terms or that incorporates these Terms by reference ("Buyer"). If a prior separate written contract signed by both parties is in effect covering the sale of Goods and Services described in an Order Confirmation (a "Prior Contract"), the terms and conditions of the Prior Contract shall prevail to the extent they are inconsistent with these Terms.</p>
+            
+            <p><strong>b.</strong> The accompanying order confirmation (the "Order Confirmation") and these Terms (collectively, this "Agreement") comprise the entire agreement between the parties and supersede all prior or contemporaneous understandings, agreements, negotiations, representations and warranties, and communications, both written and oral, excluding a Prior Contract.</p>
+            
+            <h3>2. Delivery of Goods and Performance of Services</h3>
+            <p><strong>a.</strong> The Goods will be delivered within the time period specified in the Order Confirmation, or if not so specified, within a reasonable time after the receipt of Buyer's purchase order, subject to availability of the Goods.</p>
+            
+            <p><strong>b.</strong> Unless otherwise agreed in writing by the parties, LRT shall arrange for delivery of the Goods to the location specified in the applicable Order Confirmation (the "Ship To Location"). Buyer shall take delivery of the Goods on the day the Goods have been delivered to the Ship To Location.</p>
+            
+            <h3>3. Non-Delivery</h3>
+            <p>Any liability of LRT for non-delivery of the Goods shall be limited to replacing the Goods within a reasonable time or adjusting the invoice respecting such Goods to reflect the actual quantity delivered.</p>
+            
+            <h3>4. Quantity</h3>
+            <p>If LRT delivers to Buyer a quantity of Goods of up to 15% more or less than the quantity set forth in the Order Confirmation, Buyer shall not be entitled to object to or reject the Goods or any portion of them by reason of the surplus or shortfall and shall pay for such Goods the price set forth in the Order Confirmation adjusted pro rata.</p>
+            
+            <h3>5. Shipping Terms</h3>
+            <p>Delivery of the Goods shall be made FOB Origin, Freight Prepaid and Added. The term "Origin" means the place LRT takes delivery of the Goods.</p>
+            
+            <h3>6. Title and Risk of Loss</h3>
+            <p>Title and risk of loss pass to Buyer upon delivery of the Goods at the Origin. As collateral security for the payment of the Price of the Goods, Buyer grants to Seller a lien on and purchase money security interest in the Goods sold.</p>
+            
+            <h3>8. Inspection and Rejection of Nonconforming Goods</h3>
+            <p><strong>a.</strong> Buyer shall inspect the Goods within twenty-four hours following receipt ("Inspection Period"). Buyer will be deemed to have accepted the Goods unless it notifies LRT in writing of any Nonconforming Goods during the Inspection Period.</p>
+            
+            <p><strong>b.</strong> "Nonconforming Goods" means only the following: (i) product shipped is different than identified in Buyer's purchase order; or (ii) product's label or packaging incorrectly identifies its contents.</p>
+            
+            <h3>9. Price</h3>
+            <p>Buyer shall purchase the Goods and/or Services from LRT at the price set forth in LRT's Order Confirmation (the "Price"). All Prices are exclusive of all sales, use, and excise taxes, and any other similar taxes, duties, and charges of any kind imposed by any governmental authority.</p>
+            
+            <h3>10. Payment Terms</h3>
+            <p><strong>a.</strong> Buyer shall pay all invoiced amounts due to LRT within eleven (11) days following the date of LRT's invoice. Buyer will be entitled to a 0.8% reduction in the total invoice amount due before tax if the invoice is paid within ten (10) days following the invoice date.</p>
+            
+            <p><strong>b.</strong> Buyer shall pay interest on all late payments at the lesser of the rate of 1.5% per month or the highest rate permissible under applicable law, calculated daily and compounded monthly.</p>
+            
+            <h3>11. Limited Warranty</h3>
+            <p><strong>a.</strong> LRT warrants to Buyer that: (i) the Goods will materially conform to LRT's description of the Goods on the applicable Order Confirmation as of the date of shipment; and (ii) the Services will be provided in professional, workmanlike manner, consistent with prevailing industry standards.</p>
+            
+            <p><strong>b.</strong> EXCEPT FOR THE WARRANTY SET FORTH IN SECTION 11(a), LRT MAKES NO WARRANTY WHATSOEVER WITH RESPECT TO THE GOODS OR SERVICES, INCLUDING ANY WARRANTY OF MERCHANTABILITY, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, WARRANTY AGAINST INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS OF A THIRD PARTY.</p>
+            
+            <h3>12. Limitation of Liability</h3>
+            <p><strong>a.</strong> IN NO EVENT SHALL LRT BE LIABLE TO BUYER OR ANY THIRD PARTY FOR ANY LOSS OF USE, LOSS OF REVENUE OR PROFIT, LOSS OF DATA OR DIMINUTION IN VALUE, OR FOR ANY CONSEQUENTIAL, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR PUNITIVE DAMAGES.</p>
+            
+            <p><strong>b.</strong> IN NO EVENT SHALL LRT'S AGGREGATE LIABILITY ARISING OUT OF OR RELATED TO THIS AGREEMENT EXCEED THE TOTAL OF THE AMOUNTS RECEIVED BY LRT FOR THE GOODS AND SERVICES SOLD HEREUNDER IN THE TWELVE (12) MONTHS IMMEDIATELY PRIOR TO THE DATE SUCH CLAIM ARISES.</p>
+            
+            <h3>21. Governing Law</h3>
+            <p>All matters arising out of or relating to this Agreement are governed by and construed in accordance with the internal laws of the State of Washington.</p>
+            
+            <h3>22. Submission to Jurisdiction</h3>
+            <p>Any legal suit, action, or proceeding arising out of or relating to this Agreement shall be instituted in the federal courts of the United States of America or the courts of the State of Washington located in the City of Seattle and County of King.</p>
+            
+            <p><em>Last Updated: May 2025</em></p>
+        </div>
+    </div>
+
+    <!-- Purchasing Terms Modal -->
+    <div id="purchasingTermsModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('purchasingTermsModal')">&times;</span>
+            <h2>Purchase Order Terms and Conditions</h2>
+            
+            <h3>1. Applicability</h3>
+            <p><strong>a.</strong> These purchase order terms and conditions (the "Terms") govern any purchase order issued by Lumber Runner Trading LLC ("LRT") that incorporates these Terms by reference (each, a "Purchase Order"). The delivery of the Purchase Order to the party identified as the seller in the Purchase Order (the "Seller") is an offer by LRT for the purchase of the goods specified in the Purchase Order (the "Goods") from Seller.</p>
+            
+            <p><strong>b.</strong> The Order, including any documents expressly incorporated therein by reference, constitutes the sole and entire agreement of the parties with respect to the Order, and supersedes all prior or contemporaneous understandings, agreements, negotiations, representations and warranties, and communications, both written and oral.</p>
+            
+            <h3>2. Acceptance</h3>
+            <p>The Order is not binding on LRT until Seller accepts the Order by providing a written confirmation to LRT (email acceptable), signing and returning the Purchase Order, or starting performance in accordance with the Order and providing LRT written notification of its performance (email acceptable) within two days of Seller's receipt of the Order.</p>
+            
+            <h3>3. Delivery Date</h3>
+            <p>Seller shall deliver the Goods in the quantities and on the date(s) specified in the Purchase Order; provided that if no delivery date is specified in the Purchase Order, Seller shall deliver the Goods within ten days of Seller's receipt of the Purchase Order (the "Delivery Date"). Timely delivery of the Goods is of the essence.</p>
+            
+            <h3>4. Quantity</h3>
+            <p>If Seller delivers more than the quantity of Goods ordered, LRT may reject any or all excess Goods. Any such rejected Goods shall be returned to Seller at Seller's risk and expense. Seller shall in no event deliver to LRT less than the quantity of Goods ordered except with LRT's express prior written consent.</p>
+            
+            <h3>5. Ship to Location</h3>
+            <p>The Seller shall deliver the Goods to the address specified in the Purchase Order (the "Ship to Location") or as otherwise instructed by LRT.</p>
+            
+            <h3>6. Shipping Terms</h3>
+            <p><strong>a.</strong> Title passes to LRT upon delivery of the Goods to the Ship to Location. Seller bears all risk of loss or damage to the Goods until delivery of the Goods to the Ship to Location.</p>
+            
+            <p><strong>b.</strong> Seller shall be responsible for packaging the Goods, and for arranging the shipping of the Goods to LRT according to LRT's instructions. Unless otherwise specified in the Purchase Order, the Price includes all insurance, packaging, and transportation costs to the Ship to Location.</p>
+            
+            <h3>8. Inspection and Rejection of Nonconforming Goods</h3>
+            <p>LRT has the right to inspect the Goods on or after the Delivery Date. LRT, at its sole option, may inspect all or a sample of the Goods, and may reject all or any portion of the Goods if it determines the Goods are damaged, defective, or otherwise nonconforming.</p>
+            
+            <h3>9. Price</h3>
+            <p>The price of the Goods is the price stated in the Purchase Order (the "Price"). Unless otherwise specified in the Purchase Order, the Price includes all fees and applicable taxes. No increase in the Price is effective without the prior written consent of LRT.</p>
+            
+            <h3>10. Payment Terms</h3>
+            <p>Unless otherwise specified in the Purchase Order, LRT shall pay all properly invoiced and undisputed amounts due to Seller within 30 days after LRT's receipt of such invoice. All payments hereunder must be in US dollars and made by ACH or wire transfer.</p>
+            
+            <h3>12. Warranties</h3>
+            <p>Seller represents, warrants, and covenants to LRT that:</p>
+            <ul>
+                <li>all Goods will: (i) be free from any defects in workmanship, material, and design; (ii) conform to applicable specifications; (iii) be fit and safe for their intended purpose; and (iv) be merchantable;</li>
+                <li>no claim, lien, encumbrance, or action exists or is threatened against Seller that would interfere with LRT's use or sale of the Goods;</li>
+                <li>the Goods do not and will not infringe or misappropriate any third party's intellectual property rights;</li>
+                <li>LRT will receive good and valid title to the Goods, free and clear of all encumbrances and liens of any kind.</li>
+            </ul>
+            
+            <h3>13. General Indemnification</h3>
+            <p>Seller shall defend, indemnify, and hold harmless LRT and LRT's parent company, their respective subsidiaries, affiliates, successors or assigns, and their respective directors, officers, shareholders, managers, members, advisors, and employees against any and all loss, injury, death, damage, liability, claim, deficiency, action, judgment, interest, award, penalty, fine, cost, or expense arising out of or occurring in connection with the Goods or Seller's negligence, willful misconduct, or breach of the Order.</p>
+            
+            <h3>15. Insurance</h3>
+            <p>During the term of the Order and for a period of 12 months thereafter, Seller shall, at its own expense, maintain and carry insurance in full force and effect which includes, but is not limited to, commercial general liability (including but not limited to product liability) with limits no less than $1,000,000 for each occurrence and $2,000,000 in the aggregate.</p>
+            
+            <h3>16. Compliance with Law</h3>
+            <p>Seller is in compliance with and shall comply with all local, state, and federal laws, rules, regulations, and ordinances applicable to Seller's performance under the Order. Seller has and shall maintain in effect all the licenses, permissions, authorizations, consents, and permits that it needs to carry out its obligations under the Order.</p>
+            
+            <h3>17. Termination</h3>
+            <p>LRT may terminate any Order for which notice of shipment has not been provided to LRT by Seller, in whole or in part, at any time with or without cause, effective upon written notice to Seller.</p>
+            
+            <h3>25. Choice of Law</h3>
+            <p>All matters arising out of or relating to each Order, whether sounding in contract, tort, or statute, shall be governed by and construed in accordance with the internal laws of the State of Washington.</p>
+            
+            <h3>26. Choice of Forum</h3>
+            <p>Each party irrevocably and unconditionally agrees that it will not commence any action, litigation, or proceeding of any kind whatsoever against the other party in any way arising from or relating to the Order in any forum other than U.S. District Court for the Western District of Washington or the courts of the State of Washington sitting in County of King.</p>
+            
+            <p><em>Last Updated: May 2025</em></p>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = "block";
+            document.body.style.overflow = "hidden"; // Prevent background scrolling
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = "none";
+            document.body.style.overflow = "auto"; // Re-enable background scrolling
+        }
+        
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                    document.body.style.overflow = "auto";
+                }
+            });
+        }
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === "block") {
+                        modal.style.display = "none";
+                        document.body.style.overflow = "auto";
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
